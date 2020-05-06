@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Res-social</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+  
+</head>
+<body>
+    <!-- Barre de navigation header -->
+    <nav class="navbar bg-secondary text-warning p-3" id="header">
+        <h1>OurSpot</h1>
+    
+        <button class="btn btn-lg btn-outline-warning justify-content-end" id="connexion"
+        data-toggle="modal" data-target="#modalCenter">Connexion</button> 
+    </nav>
+    <!-- Modal de connexion -->
+    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" 
+    aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                <h5 class="modal-title" id="modalCenterTitle">Connexion utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body text-center">
+                <form name="formLogIn" class="mt-3" action="">
+                    <div class="form-group">
+                    <input type="email" name="email" class="px-3" placeholder="email"><br>
+                    <input type="password" name="password" class="px-3" placeholder="password"><br>  
+                    
+                    <input type="checkbox" name="check" value="checked" checked>
+                    <label><small>Rester connecté</small></label>
+                    </div>
+                    <a href=""><small>Mot de passe oublié ?</small></a>
+                    <div class="modal-footer text-center">
+                    <button type="submit" class="btn btn-block btn-warning">Se connecter</button>
+                    </div>
+                </form>
+                <p>Pour vous inscrire veuillez cliquer <a href="">&rarr; ici &larr;</a></p> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page principale -->
+    <div class="row">
+        <!-- Zone d'affichage des utilisateurs -->
+        <div class="col-sm-3 container-fluid bg-warning border-right border-secondary text-center min-vh-100 py-5">
+            <button class="get-users btn btn-sm btn-dark px-4" id="list" style="display: none;">Liste utilisateurs</button>
+            <button class="hide-users btn btn-sm btn-secondary mt-2 px-4" id="hide" style="display: none;">Masquer liste</button>
+            <div class="users">
+            </div>
+        </div>
+    
+        <div class="col-sm-6 container-fluid bg-warning text-center min-vh-100 py-5">
+            <!-- Formulaire d'inscription -->
+            <form name="formSignUp" class="pt-5 " id="formSignUp" action="" style='display:block'>
+                <div class="form-group">
+                    <h2 class="mb-3">Formulaire d'inscription</h2>
+                    <input type="text" name="firstname" class="px-3" placeholder="firstname"><br>
+                    <input type="text" name="lastname" class="px-3" placeholder="lastname"><br>
+                    <input type="text" name="pseudo" class="px-3" placeholder="pseudo"><br>
+                    <input type="email" name="email" class="px-3" placeholder="email"><br>
+                    <input type="password" name="password" class="px-3" placeholder="password"><br>  
+                    <button type="submit" class="btn btn-dark mt-3">S'enregistrer</button>
+                </div>
+                
+            </form>
+            <!-- Ajout d'un nouveau message -->
+           <form name="formAddPost" style="display: none;" id="addPost">
+               <input type="text" name="message" class="px-3 pb-1" placeholder="Entrez votre message...">
+               <br> <button type="submit" class="btn btn-sm btn-outline-dark my-2 px-4">Ajouter</button>
+           </form>
+            
+            <div class="posts">
+            </div>
+           
+        </div>
+        <!-- Zone profil utilisateur -->
+        <div class="col-sm-3 container-fluid bg-warning border-left border-secondary text-center min-vh-100 py-5">
+            <form name="updateProfil" class="p-3" style="display: none;" action="PUT" id="update-profil">
+                <h3 class="mb-3 py-2 border-top border-bottom">User profil</h3>
+                    <input type="text" name="firstname" class="px-3" style="width: 130px;"  placeholder="firstname"><br>
+                    <input type="text" name="lastname" class="px-3" style="width: 130px;" placeholder="lastname"><br>
+                    <input type="email" name="email" class="px-3" style="width: 130px;" placeholder="email"><br>
+                    <input type="text" name="pseudo" class="px-3" style="width: 130px;" placeholder="pseudo"><br>
+                    <button type="submit" class="btn btn-sm btn-dark mt-3 modifierProfil">Modifier</button>
+                    <button type="button" class="btn btn-sm btn-danger mt-3 annulerProfil">Annuler</button>
+            </form>
+            <button style="display: none;" class="btn btn-sm btn-dark px-4" id="profil">Modifier profil</button>
+        </div>
+    </div>
+    
+    <!-- Barre de navigation footer -->
+    <footer class="navbar bg-secondary text-warning text-center justify-content-center pt-5 pb-2">
+        <p><i>OurSpot inc. - <a href="#" class="text-light"><small>À propos</small></a></i></p><br>
+    </footer>
+
+    <script type="module" src="./js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+</body>
+</html>
