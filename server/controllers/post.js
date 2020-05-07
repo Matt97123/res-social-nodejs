@@ -36,8 +36,18 @@ function getPosts(req, res) {
     })
   }
 
+function deletePost(req, res) {
+    Post.remove({ _id: req.params.postId }, (err, post) => {
+      if(err){
+          res.send(err);
+      }
+      res.json({ message: 'Successfully deleted post!'});
+    });
+  }
+
 module.exports = {
     savePost,
     getPosts,
+    deletePost,
   };
   

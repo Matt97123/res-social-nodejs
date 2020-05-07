@@ -49,32 +49,38 @@ document.formLogIn.addEventListener('submit', async function(e) {
       Bienvenue ${data.user.firstname} ! <br> <a href="">Se déconnecter<a> </div>`;
       document.querySelector('#header').innerHTML = navHTML;
     }
+    /** Sauvegarde de l'id user pour la session */
     sessionStorage.setItem("idUser", data.user._id);
   
+    /** Liste des posts */
     const res2 = await fetch(`${urlApi}/posts`);
     const data2 = await res2.json();
     if (data2 && data2.posts) {
       let usersHTML2 = "";
-      for (let { _id, message, userid, createdat, updatedat } of data2.posts) {
+      for (let { message, createdat, updatedat } of data2.posts) {
         usersHTML2 += `
           <div class="post mt-2">
-            <h4>${userid}</h4>
             <h5>${message}</h5>
             <h6>posté le: ${createdat} <br>modifié le: ${updatedat}</h6>
           </div>
+          <div class="justify-content-end">
+          <button type="button" class="btn btn-sm px-3 btn-outline-secondary"><i class="far fa-edit"></i></button>
+          <button type="button" id="deletePost" class="btn btn-sm px-3 btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+          </div>
           <hr />
         `;
-      document.querySelector('.posts').innerHTML = usersHTML2;
+        document.querySelector('.posts').innerHTML = usersHTML2;
+
       }
+      
     }
   });
 
-  /** Ajout d'un nouveau message */
+  /** Ajout d'un nouveau post */
   document.formAddPost.addEventListener('submit', async function(e) {
     e.preventDefault();
     let post = {};
     new FormData(this).forEach((v, k) => post[k] = v);
-  
     const res = await fetch(`${urlApi}/post`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -82,8 +88,9 @@ document.formLogIn.addEventListener('submit', async function(e) {
     });
   
     const data = await res.json();
-    
   });
+
+  /** Suppression d'un post -- À coder... */
 
   /** Affiche la liste des utilisateurs */
   document.querySelector('.get-users').addEventListener('click', async () => {
@@ -96,16 +103,15 @@ document.formLogIn.addEventListener('submit', async function(e) {
       for (let { _id, firstname, lastname, email, pseudo } of data.users) {
         usersHTML += `
           <div class="user mt-2">
-            <h4>${_id}</h4>
+            <small>${_id}</small>
             <h5>${firstname} ${lastname}</h5>
-            <h6>Email: ${email} - Pseudo: ${pseudo}</h6>
+            <h6>Pseudo: ${pseudo} <br> Email: ${email}</h6>
           </div>
           <hr />
         `;
         $('#hide').show();
         document.querySelector('.users').innerHTML = usersHTML;
       }
-    
     }
   });
 
@@ -125,14 +131,13 @@ document.formLogIn.addEventListener('submit', async function(e) {
       headers: { 'Authorization': userToken },
     });
     const data = await res.json();
-    // if (data && data.users) {
     document.updateProfil.firstname.value = data.user.firstname;
     document.updateProfil.lastname.value = data.user.lastname;
     document.updateProfil.pseudo.value = data.user.pseudo;
     document.updateProfil.email.value = data.user.email;
   });
 
-  /** Modifie les données du profil connecté -- A débugger... */
+  /** Modifie les données du profil connecté -- À débugger... */
   document.updateProfil.addEventListener('submit', async function(e) {
     e.preventDefault();
   
